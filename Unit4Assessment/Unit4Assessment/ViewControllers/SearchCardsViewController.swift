@@ -74,6 +74,7 @@ extension SearchCardsViewController: UICollectionViewDataSource {
         let card = cards[indexPath.row]
         cell.configureCell(for: card)
         cell.backgroundColor = .systemOrange
+        cell.delegate = self
         return cell
     }
     
@@ -90,3 +91,23 @@ extension SearchCardsViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+extension SearchCardsViewController: SavedCardCellDelegate {
+    func didSelectAddButton(_ savedCardCell: SearchCardsCellCell, card: Card) {
+        
+        do {
+            try dataPersistance.createItem(card)
+            print("card created")
+        } catch {
+            print("error saving card \(error)")
+        }
+         
+        print(card.quizTitle)
+
+    }
+    
+    
+    }
+    
+    
+
