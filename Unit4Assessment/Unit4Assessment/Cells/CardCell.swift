@@ -22,7 +22,7 @@ class CardCell: UICollectionViewCell {
     public lazy var moreButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -82,7 +82,7 @@ class CardCell: UICollectionViewCell {
         }
     }
     
-    @objc private func moreButtonPressed(_ sender: UIButton) {
+    @objc private func addButtonPressed(_ sender: UIButton) {
         //print("button was pressed for article \(currentArticle.title)")
         
         // step 3 of custom delegate

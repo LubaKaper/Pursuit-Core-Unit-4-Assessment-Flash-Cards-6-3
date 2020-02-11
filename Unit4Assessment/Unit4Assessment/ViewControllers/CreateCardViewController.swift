@@ -18,19 +18,45 @@ class CreateCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createCardView.firstFactAnswer.delegate = self
+        createCardView.secondFactAnswer.delegate = self
 
         view.backgroundColor = .systemBackground
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+}
+extension CreateCardViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        // adding placeholder text to textView
+        if createCardView.firstFactAnswer.text == "enter first quiz fact"{
+        createCardView.firstFactAnswer.text = ""
+        }
+        if createCardView.secondFactAnswer.text == "enter second quiz fact"{
+        createCardView.secondFactAnswer.text = ""
+        }
+        
     }
-    */
-
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if createCardView.firstFactAnswer.text == ""{
+        createCardView.firstFactAnswer.text = "enter first quiz fact"
+        }
+        if createCardView.secondFactAnswer.text == ""{
+        createCardView.secondFactAnswer.text = "enter second quiz fact"
+        }
+        textView.resignFirstResponder()
+    }
+    
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        print(text)
+//        if createCardView.firstFactAnswer.text == "\n" {
+//            createCardView.firstFactAnswer.resignFirstResponder()
+//        }
+//        if createCardView.secondFactAnswer.text == "\n" {
+//            createCardView.secondFactAnswer.resignFirstResponder()
+//        }
+//        return true
+//    }
 }

@@ -17,13 +17,18 @@ class CreateCardView: UIView {
         return textField
     }()
     
-    public lazy var firstFactAnswer: UITableView = {
-        let textView = UITableView()
+    public lazy var firstFactAnswer: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .systemGray
+        textView.text = "enter first quiz fact"
+    
         return textView
     }()
     
-    public lazy var secondFactAnswer: UITableView = {
-           let textView = UITableView()
+    public lazy var secondFactAnswer: UITextView = {
+           let textView = UITextView()
+        textView.backgroundColor = .systemGray
+        textView.text = "enter second quiz fact"
            return textView
        }()
 
@@ -39,6 +44,8 @@ class CreateCardView: UIView {
     
     private func commonInit() {
         setupTextFieldConstraints()
+        setupfirstAnswerTextViewConstrains()
+        setupSecondAnswerTextViewConstrains()
     }
     
     private func setupTextFieldConstraints() {
@@ -49,6 +56,30 @@ class CreateCardView: UIView {
             titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             titleTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    private func setupfirstAnswerTextViewConstrains() {
+        addSubview(firstFactAnswer)
+        firstFactAnswer.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            firstFactAnswer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            firstFactAnswer.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 15),
+            firstFactAnswer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            firstFactAnswer.heightAnchor.constraint(equalToConstant: 200)
+        ])
+    }
+    
+    private func setupSecondAnswerTextViewConstrains() {
+        addSubview(secondFactAnswer)
+        secondFactAnswer.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            secondFactAnswer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            secondFactAnswer.topAnchor.constraint(equalTo: firstFactAnswer.bottomAnchor, constant: 15),
+            secondFactAnswer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            secondFactAnswer.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 

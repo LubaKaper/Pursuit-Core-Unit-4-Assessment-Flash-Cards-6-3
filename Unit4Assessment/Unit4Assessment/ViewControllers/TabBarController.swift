@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import  DataPersistence
 
 class TabBarController: UITabBarController {
+    
+    private var dataPersistance = DataPersistence<Card>(filename: "savedArticle.plist")
     
     private lazy var cardsVC: CardsViewController = {
         let viewController = CardsViewController()
@@ -27,7 +30,7 @@ class TabBarController: UITabBarController {
     private lazy var searchCardVC: SearchCardsViewController = {
         let viewController = SearchCardsViewController()
         viewController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "3.circle"), tag: 2)
-       // viewController.dataPersistance = dataPersistance
+        viewController.dataPersistance = dataPersistance
         return viewController
     }()
 

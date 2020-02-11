@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import DataPersistence
 
 class CardsViewController: UIViewController {
+    
+    public var dataPersistance: DataPersistence<Card>!
     
     private let cardView = CardsView()
     
     override func loadView() {
         view = cardView
+        
+    }
+    
+    private var savedCards = [Card]() {
+        didSet {
+            cardView.collectionView.reloadData()
+        }
     }
 
     override func viewDidLoad() {
