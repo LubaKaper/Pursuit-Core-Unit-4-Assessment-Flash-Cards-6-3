@@ -27,21 +27,18 @@ class CreateCardViewController: UIViewController {
         createCardView.titleTextField.delegate = self
         createCardView.firstFactAnswer.delegate = self
         createCardView.secondFactAnswer.delegate = self
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(saveButtonPressed(_:)))
+          navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(saveButtonPressed(_:)))
+        if createCardView.firstFactAnswer.text == "enter first quiz fact" || createCardView.secondFactAnswer.text == "enter second quiz fact" || createCardView.titleTextField.text!  == "enter question here" {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
         view.backgroundColor = .systemBackground
     }
     
-//    private func updateUI() {
-//        if let card = createdCard {
-//            createCardView.titleTextField.text = card.question
-//            createCardView.firstFactAnswer.text = card.factOne
-//            createCardView.secondFactAnswer.text = card.factTwo
 //
-//        }
-//    }
     
     @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
         print("button pressed")
+      
         let cardObject = Card(quizTitle: createCardView.titleTextField.text ?? "", facts: [createCardView.firstFactAnswer.text,createCardView.secondFactAnswer.text])
         
         do {
@@ -51,6 +48,18 @@ class CreateCardViewController: UIViewController {
             print("saving error: \(error)")
         }
          dismiss(animated: true, completion: nil)
+        
+        // this resigns keyboard after button is pressed
+        self.view.endEditing(true )
+        
+        emptyAllFields()
+        
+    }
+    
+    private func emptyAllFields() {
+        createCardView.firstFactAnswer.text = "enter first quiz fact"
+        createCardView.secondFactAnswer.text = "enter second quiz fact"
+        createCardView.titleTextField.text? = ""
     }
 
     
@@ -60,6 +69,7 @@ extension CreateCardViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         // adding placeholder text to textView
+       // navigationItem.rightBarButtonItem?.isEnabled = true
         if createCardView.firstFactAnswer.text == "enter first quiz fact"{
         createCardView.firstFactAnswer.text = ""
         }
@@ -76,8 +86,14 @@ extension CreateCardViewController: UITextViewDelegate {
         if createCardView.secondFactAnswer.text == ""{
         createCardView.secondFactAnswer.text = "enter second quiz fact"
         }
+        
         textView.resignFirstResponder()
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
+    
+}
+    
+   
     
 //    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 //        print(text)
@@ -89,9 +105,13 @@ extension CreateCardViewController: UITextViewDelegate {
 //        }
 //        return true
 //    }
-}
+
 extension CreateCardViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
        // textField.resignFirstResponder()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

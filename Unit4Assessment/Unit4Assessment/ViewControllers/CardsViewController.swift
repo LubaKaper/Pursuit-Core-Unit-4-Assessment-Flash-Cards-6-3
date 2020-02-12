@@ -72,7 +72,7 @@ extension CardsViewController: UICollectionViewDataSource {
         cell.backgroundColor = .systemPink
         
         cell.configureCell(for: savedCard)
-        cell.delegate = self
+        cell.delegate = self 
         return cell
     }
     
