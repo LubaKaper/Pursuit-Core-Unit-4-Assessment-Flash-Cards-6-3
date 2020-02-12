@@ -100,7 +100,7 @@ extension SearchCardsViewController: SavedCardCellDelegate {
         do {
             try dataPersistance.createItem(card)
             print("card created")
-            self.showAlert(title: "Saved", message: "Your card was saved")
+            self.showAlert(title: "Saved", message: "Quiz card was saved")
         } catch {
             print("error saving card \(error)")
         }
