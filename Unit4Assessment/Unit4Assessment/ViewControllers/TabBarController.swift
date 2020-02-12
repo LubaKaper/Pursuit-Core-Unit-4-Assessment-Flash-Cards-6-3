@@ -25,7 +25,8 @@ class TabBarController: UITabBarController {
     private lazy var createCardVC: CreateCardViewController = {
         let viewController = CreateCardViewController()
         viewController.tabBarItem = UITabBarItem(title: "Create", image: UIImage(systemName: "2.circle"), tag: 1)
-       // viewController.dataPersistance = dataPersistance
+        viewController.dataPersistance = dataPersistance
+        
         return viewController
     }()
     

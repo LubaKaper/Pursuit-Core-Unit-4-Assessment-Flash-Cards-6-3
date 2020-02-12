@@ -13,12 +13,15 @@ class CardsViewController: UIViewController {
     
     public var dataPersistance: DataPersistence<Card>!
     
+    
     private let cardView = CardsView()
     
     override func loadView() {
         view = cardView
         
     }
+    
+    
     
     private var savedCards = [Card]() {
         didSet {
@@ -47,6 +50,8 @@ class CardsViewController: UIViewController {
         } catch {
            print("error saving cards \(error)")
         }
+        
+        
     }
     
 

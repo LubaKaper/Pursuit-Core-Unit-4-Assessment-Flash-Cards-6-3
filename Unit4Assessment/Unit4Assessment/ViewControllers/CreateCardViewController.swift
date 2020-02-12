@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import DataPersistence
 
 class CreateCardViewController: UIViewController {
+    
+    public var dataPersistance: DataPersistence<Card>!
+    
+   // public var createdCard: CreatedCard?
     
     private let createCardView = CreateCardView()
     
@@ -18,14 +23,33 @@ class CreateCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        createCardView.titleTextField.delegate = self
         createCardView.firstFactAnswer.delegate = self
         createCardView.secondFactAnswer.delegate = self
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(saveButtonPressed(_:)))
         view.backgroundColor = .systemBackground
     }
     
+//    private func updateUI() {
+//        if let card = createdCard {
+//            createCardView.titleTextField.text = card.question
+//            createCardView.firstFactAnswer.text = card.factOne
+//            createCardView.secondFactAnswer.text = card.factTwo
+//
+//        }
+//    }
+    
     @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
+        print("button pressed")
+        let cardObject = Card(quizTitle: createCardView.titleTextField.text ?? "", facts: [createCardView.firstFactAnswer.text,createCardView.secondFactAnswer.text])
         
+        do {
+            try dataPersistance.createItem(cardObject)
+            print("card created")
+        } catch {
+            print("saving error: \(error)")
+        }
+         dismiss(animated: true, completion: nil)
     }
 
     
@@ -64,4 +88,9 @@ extension CreateCardViewController: UITextViewDelegate {
 //        }
 //        return true
 //    }
+}
+extension CreateCardViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+       // textField.resignFirstResponder()
+    }
 }

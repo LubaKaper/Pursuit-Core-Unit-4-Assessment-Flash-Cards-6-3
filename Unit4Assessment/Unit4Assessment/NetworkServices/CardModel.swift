@@ -12,6 +12,12 @@ import Foundation
 //    let cards: [Card]
 //}
 
+struct CreatedCard: Codable & Equatable {
+    let question: String
+    let factOne: String
+    let factTwo: String
+}
+
 struct Card: Codable & Equatable {
     let quizTitle: String
     let facts: [String]
