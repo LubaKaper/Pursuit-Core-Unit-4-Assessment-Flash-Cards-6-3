@@ -20,9 +20,14 @@ class CreateCardViewController: UIViewController {
         super.viewDidLoad()
         createCardView.firstFactAnswer.delegate = self
         createCardView.secondFactAnswer.delegate = self
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(saveButtonPressed(_:)))
         view.backgroundColor = .systemBackground
     }
+    
+    @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
+        
+    }
+
     
 
 }
