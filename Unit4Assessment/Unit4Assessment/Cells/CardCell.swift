@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol CardCellDelegate: AnyObject {
+    func didSelectOptionsButton(_ cardCell: CardCell, card: Card)
+}
+
 class CardCell: UICollectionViewCell {
+    
+    weak var delegate: CardCellDelegate?
     
     private var currentCard: Card!
     
@@ -88,7 +94,7 @@ class CardCell: UICollectionViewCell {
         //print("button was pressed for article \(currentArticle.title)")
         
         // step 3 of custom delegate
-        // delegate?.didSelectMoreButton(self, article: currentArticle)
+        delegate?.didSelectOptionsButton(self, card: currentCard)
     }
     
     private func commonInit() {

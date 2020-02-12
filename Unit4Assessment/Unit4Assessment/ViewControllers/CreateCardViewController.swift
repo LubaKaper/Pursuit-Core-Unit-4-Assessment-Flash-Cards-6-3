@@ -23,6 +23,7 @@ class CreateCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Create Quiz"
         createCardView.titleTextField.delegate = self
         createCardView.firstFactAnswer.delegate = self
         createCardView.secondFactAnswer.delegate = self

@@ -32,6 +32,7 @@ class CardsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "My Quizes"
         fetchSavedCards()
 
         cardView.collectionView.register(CardCell.self, forCellWithReuseIdentifier: "cardCell")
@@ -71,6 +72,7 @@ extension CardsViewController: UICollectionViewDataSource {
         cell.backgroundColor = .systemPink
         
         cell.configureCell(for: savedCard)
+        cell.delegate = self
         return cell
     }
     
@@ -94,6 +96,31 @@ extension CardsViewController: DataPersistenceDelegate {
     
     func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         fetchSavedCards()
+    }
+    
+    
+}
+extension CardsViewController: CardCellDelegate {
+    func didSelectOptionsButton(_ cardCell: CardCell, card: Card) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (alertAction) in
+            self.deleteCard(card)
+        }
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    private func deleteCard(_ card: Card) {
+        guard let index = savedCards.firstIndex(of: card) else {
+            return
+        }
+        do {
+            try dataPersistance.deleteItem(at: index)
+        } catch {
+            print("error deleting card \(error)")
+        }
     }
     
     
