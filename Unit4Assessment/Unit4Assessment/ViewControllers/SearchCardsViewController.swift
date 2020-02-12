@@ -55,9 +55,11 @@ class SearchCardsViewController: UIViewController {
         do {
             try dataPersistance.createItem(card)
             print("card created")
+            
         } catch {
             print("error saving card \(error)")
         }
+       
     }
 
 }
@@ -98,6 +100,7 @@ extension SearchCardsViewController: SavedCardCellDelegate {
         do {
             try dataPersistance.createItem(card)
             print("card created")
+            self.showAlert(title: "Saved", message: "Your card was saved")
         } catch {
             print("error saving card \(error)")
         }
@@ -110,4 +113,15 @@ extension SearchCardsViewController: SavedCardCellDelegate {
     }
     
     
+extension SearchCardsViewController {
+    func showAlert(title: String, message: String, completion: ((UIAlertAction) -> Void)? = nil) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        
+       let okAction = UIAlertAction(title: "OK", style: .default, handler: completion)
+       alertController.addAction(okAction)
+       present(alertController, animated: true, completion: nil)
+     
+    }
+}
 
