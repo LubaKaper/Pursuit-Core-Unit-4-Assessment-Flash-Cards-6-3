@@ -44,23 +44,7 @@ class SearchCardsViewController: UIViewController {
         cards = Card.getCards()
     }
     
-//    private func getCards() {
-//        CardsAPIClient.getCards { [weak self](result) in
-//            switch
-//        }
-//    }
-    
-//    @objc func saveButtonPressed(_ sender: UIButton) {
-//        guard let card = card else { return }
-//        do {
-//            try dataPersistance.createItem(card)
-//            print("card created")
-//            
-//        } catch {
-//            print("error saving card \(error)")
-//        }
-//       
-//    }
+
 
 }
 

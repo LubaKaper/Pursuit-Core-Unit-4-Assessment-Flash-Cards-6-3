@@ -51,11 +51,7 @@ class CardsViewController: UIViewController {
         } catch {
            print("error saving cards \(error)")
         }
-        
-        
     }
-    
-
    
 }
 
