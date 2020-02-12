@@ -22,13 +22,15 @@ class CardsViewController: UIViewController {
     
     private var savedCards = [Card]() {
         didSet {
+            print(savedCards.count)
             cardView.collectionView.reloadData()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fetchSavedCards()
+
         cardView.collectionView.register(CardCell.self, forCellWithReuseIdentifier: "cardCell")
         
         cardView.collectionView.dataSource = self
@@ -37,18 +39,33 @@ class CardsViewController: UIViewController {
         view.backgroundColor = .yellow
     }
     
+    
+    
+    private func fetchSavedCards() {
+        do {
+        savedCards = try dataPersistance.loadItems()
+        } catch {
+           print("error saving cards \(error)")
+        }
+    }
+    
 
    
 }
 
 extension CardsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return savedCards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardCell", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardCell", for: indexPath) as? CardCell else {
+            fatalError("could not downcast to CardCell")
+        }
+        let savedCard = savedCards[indexPath.row]
         cell.backgroundColor = .systemPink
+        
+        cell.configureCell(for: savedCard)
         return cell
     }
     
@@ -62,5 +79,17 @@ extension CardsViewController: UICollectionViewDelegateFlowLayout {
         let itemHeight: CGFloat = maxSize.height * 0.30
         return CGSize(width: itemWidth, height: itemHeight)
     }
+    
+}
+
+extension CardsViewController: DataPersistenceDelegate {
+    func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        fetchSavedCards()
+    }
+    
+    func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        fetchSavedCards()
+    }
+    
     
 }

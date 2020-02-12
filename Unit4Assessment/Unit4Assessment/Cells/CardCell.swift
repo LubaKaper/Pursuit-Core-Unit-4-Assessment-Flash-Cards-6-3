@@ -10,6 +10,8 @@ import UIKit
 
 class CardCell: UICollectionViewCell {
     
+    private var currentCard: Card!
+    
     private var isShowingAnswer = false
     
     private lazy var longPressGesture: UILongPressGestureRecognizer = {
@@ -128,6 +130,11 @@ class CardCell: UICollectionViewCell {
             answerLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             answerLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    public func configureCell(for savedCard: Card) {
+        currentCard = savedCard
+        questionLablel.text = savedCard.quizTitle
     }
     
 }

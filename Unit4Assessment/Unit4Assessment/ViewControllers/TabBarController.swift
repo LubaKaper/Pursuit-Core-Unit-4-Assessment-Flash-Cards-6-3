@@ -17,6 +17,7 @@ class TabBarController: UITabBarController {
         let viewController = CardsViewController()
         viewController.tabBarItem = UITabBarItem(title: "Cards", image: UIImage(systemName: "1.circle"), tag: 0)
        // viewController.dataPersistance = dataPersistance
+        viewController.dataPersistance = dataPersistance
         return viewController
     }()
     
