@@ -51,7 +51,7 @@ class SearchCardsCellCell: UICollectionViewCell {
        public lazy var answerLabel: UILabel = {
            let label = UILabel()
            label.numberOfLines = 0
-           label.font = UIFont.preferredFont(forTextStyle: .title2)
+           label.font = UIFont.preferredFont(forTextStyle: .title1)
            label.text = "Answer"
            
            label.alpha = 0
@@ -156,5 +156,6 @@ class SearchCardsCellCell: UICollectionViewCell {
     public func configureCell(for card: Card) {
         currentCard = card
         questionLablel.text = card.quizTitle
+       answerLabel.text = "1. \(card.facts.first ?? "")\n2. \(card.facts.last ?? "")"
     }
 }

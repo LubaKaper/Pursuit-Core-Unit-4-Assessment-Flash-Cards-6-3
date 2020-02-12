@@ -50,17 +50,17 @@ class SearchCardsViewController: UIViewController {
 //        }
 //    }
     
-    @objc func saveButtonPressed(_ sender: UIButton) {
-        guard let card = card else { return }
-        do {
-            try dataPersistance.createItem(card)
-            print("card created")
-            
-        } catch {
-            print("error saving card \(error)")
-        }
-       
-    }
+//    @objc func saveButtonPressed(_ sender: UIButton) {
+//        guard let card = card else { return }
+//        do {
+//            try dataPersistance.createItem(card)
+//            print("card created")
+//            
+//        } catch {
+//            print("error saving card \(error)")
+//        }
+//       
+//    }
 
 }
 
@@ -97,6 +97,17 @@ extension SearchCardsViewController: UICollectionViewDelegateFlowLayout {
 extension SearchCardsViewController: SavedCardCellDelegate {
     func didSelectAddButton(_ savedCardCell: SearchCardsCellCell, card: Card) {
         
+        if dataPersistance.hasItemBeenSaved(card) {
+            self.showAlert(title: "Card Was Already Saved", message: "Choose another card")
+//            if let index = try? dataPersistance.loadItems().firstIndex(of: card) {
+//                do {
+//                    try dataPersistance.deleteItem(at: index)
+//                } catch {
+//                    print("error deleting article \(error)")
+//                }
+//            }
+        } else {
+        
         do {
             try dataPersistance.createItem(card)
             print("card created")
@@ -104,7 +115,7 @@ extension SearchCardsViewController: SavedCardCellDelegate {
         } catch {
             print("error saving card \(error)")
         }
-         
+        }
         print(card.quizTitle)
 
     }
